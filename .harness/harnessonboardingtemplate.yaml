@@ -1,0 +1,41 @@
+pipeline:
+  name: harness-onboarding-template
+  identifier: harnessonboardingtemplate
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: YuvarajK_GitHub
+        repoName: harness-stuff
+        build: <+input>
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: |-
+                      curl -LO harness.gateway.scarf.sh/v0.0.22-Preview/harness-v0.0.22-Preview-linux-amd64.tar.gz
+                      tar -xvf harness-v0.0.22-Preview-linux-amd64.tar.gz
+                      mv harness /usr/local/bin
+                      harness login --api-key pat.-Sey-zxTQR-W6TCw2Ud0Kw.659d6052e15a960eb4d647a8.32aKvJKVKiWlHAxBBSnI --account-id -Sey-zxTQR-W6TCw2Ud0Kw
+                      git clone https://github.com/vinay1074/harness-stuff.git 
+                      harness pipeline --file newpipeline.yaml apply
