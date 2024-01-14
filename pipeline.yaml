@@ -1,0 +1,55 @@
+pipeline:
+  name: Harness-Backstage-YuvarajK
+  identifier: HarnessBackstageYuvarajK
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Build
+        identifier: Build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: mvn clean install
+  properties:
+    ci:
+      codebase:
+        connectorRef: Yuvaraj_K_App
+        build: <+input>
+  variables:
+    - name: project_name
+      type: String
+      description: ""
+      required: false
+      value: <+input>
+    - name: github_token
+      type: Secret
+      description: ""
+      required: false
+      value: Yuvaraj_K_Git_Token
+    - name: github_org
+      type: String
+      description: ""
+      required: false
+      value: vinay1074-devops
+    - name: github_repo
+      type: String
+      description: ""
+      required: false
+      value: <+input>
